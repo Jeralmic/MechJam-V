@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dckoekxhi5hvb"]
+[gd_scene load_steps=7 format=3 uid="uid://dckoekxhi5hvb"]
 
 [ext_resource type="PackedScene" uid="uid://c2mddmcsppkjk" path="res://Characters/Player/player.tscn" id="1_uq4xv"]
 
@@ -19,6 +19,9 @@ glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_t54p4"]
 
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_a4e8q"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -28,12 +31,16 @@ environment = SubResource("Environment_pfw0u")
 transform = Transform3D(-0.657375, -0.7099, 0.252784, 0, 0.335452, 0.942057, -0.753563, 0.619285, -0.220518, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.896888, 0.442257, 0, -0.442257, 0.896888, 0, 4.59108, 6.67223)
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0)
 mesh = SubResource("PlaneMesh_t54p4")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_a4e8q")
+
 [node name="Player" parent="." instance=ExtResource("1_uq4xv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0167704, 1.00795, -0.00540113)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0167704, 1.51093, -0.00540113)
+top_level = true
+linear_damp = 2.0
